@@ -15,6 +15,8 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.thelastmonkey.kidlocaliza.util.KidLocalizaUtil;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -28,12 +30,13 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         btnPrueba = (Button)findViewById(R.id.btnPrueba);
+        final KidLocalizaUtil kidLocaliza = new KidLocalizaUtil();
 
         btnPrueba.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(),"Funciona el botoncito",Toast.LENGTH_SHORT).show();
-
+                kidLocaliza.metodoPrueba();
             }
         });
 
