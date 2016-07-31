@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity
         final KidDTO kidDTO = new KidDTO();
         kidDTO.setNombre("Marcos");
         kidDTO.setEdad(5);
+        kidDTO.setMajor(1);
 
 
         btnPrueba.setOnClickListener(new View.OnClickListener() {

@@ -12,6 +12,7 @@ public class KidLocalizaUtil {
     public void muestroKidDTO(KidDTO kidDTO){
         System.out.println("Nombre:" + kidDTO.getNombre());
         System.out.println("Edad:" + kidDTO.getEdad());
+        System.out.println("Major:" + kidDTO.getMajor());
         System.out.println("Es el UUID: " +kidDTO.getBeconUUID());
     }
 }
