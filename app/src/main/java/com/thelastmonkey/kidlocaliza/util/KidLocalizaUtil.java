@@ -1,3 +1,4 @@
+
 package com.thelastmonkey.kidlocaliza.util;
 
 public class KidLocalizaUtil {
