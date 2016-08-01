@@ -1,8 +1,12 @@
 package com.thelastmonkey.kidlocaliza;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -33,6 +37,24 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         btnPrueba = (Button)findViewById(R.id.btnPrueba);
+
+        /**
+         * Realizo la comprobación de los permisos para Bluetooth y Ubicación GPS
+         *
+         */
+        if(ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            Log.i("KidLocaliza", "El permiso está denegado y hay que solicitarlo a través de la App.");
+
+            if(ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION)){
+                Log.i("KidLocaliza", "Aquí se vuelve a solicitar los permisos.");
+                //new sweetA
+            }
+            else{
+
+            }
+        }else{
+
+        }
 
         final KidLocalizaUtil kidLocalTutil = new KidLocalizaUtil();
         final KidDTO kidDTO = new KidDTO();
