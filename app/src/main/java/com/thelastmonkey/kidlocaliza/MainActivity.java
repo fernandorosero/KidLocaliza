@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     Button btnPrueba;
+    private final int PERMISO_LOCALIZACION = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
