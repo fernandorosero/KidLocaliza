@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity
 
             if(ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION)){
                 Log.i("KidLocaliza", "Aquí se vuelve a solicitar los permisos.");
-                //new sweetA
+
             }
             else{
 
