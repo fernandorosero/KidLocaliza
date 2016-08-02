@@ -1,6 +1,7 @@
 package com.thelastmonkey.kidlocaliza;
 
 import android.Manifest;
+import android.bluetooth.BluetoothAdapter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity
 
     Button btnPrueba;
     private final int PERMISO_LOCALIZACION = 1;
+    private BluetoothAdapter bluetoothAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +41,24 @@ public class MainActivity extends AppCompatActivity
         btnPrueba = (Button)findViewById(R.id.btnPrueba);
 
         /**
-         * Realizo la comprobación de los permisos para Bluetooth y Ubicación GPS
+         * Compruebo si el dispositivo tiene Bluetooth
+         *
+         */
+
+        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (bluetoothAdapter == null){
+            Toast.makeText(getApplicationContext(),"Este dispositivo no tiene Bluetooth",Toast.LENGTH_SHORT).show();
+        }else{
+            if(bluetoothAdapter.isEnabled()){
+                bluetoothAdapter.enable();
+            }
+        }
+
+        //Detecto el estado en el que se encuentra el adaptador Bluetooth ON/OFF
+
+
+        /**
+         * Realizo la comprobación de los permisos Ubicación GPS
          *
          */
         if(ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
@@ -47,13 +66,15 @@ public class MainActivity extends AppCompatActivity
 
             if(ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION)){
                 Log.i("KidLocaliza", "Aquí se vuelve a solicitar los permisos.");
-
+                ActivityCompat.requestPermissions(MainActivity.this,
+                        new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},PERMISO_LOCALIZACION);
             }
             else{
-
+                ActivityCompat.requestPermissions(MainActivity.this,
+                        new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},PERMISO_LOCALIZACION);
             }
         }else{
-
+            Log.i("KidLocaiza","Permiso otorgado");
         }
 
         final KidLocalizaUtil kidLocalTutil = new KidLocalizaUtil();
