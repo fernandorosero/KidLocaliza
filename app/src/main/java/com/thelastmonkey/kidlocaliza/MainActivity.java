@@ -76,8 +76,7 @@ public class MainActivity extends AppCompatActivity
         }
         else
         {
-            Toast.makeText(MainActivity.this, "No tiene ningun permisos y  está cancelado", Toast.LENGTH_SHORT).show();
-
+            Toast.makeText(MainActivity.this, "No tiene permiso y esta cancelado", Toast.LENGTH_SHORT).show();
         }
         if(ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
             Log.i("KidLocaliza", "El permiso está denegado y hay que solicitarlo a través de la App.");
