@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -46,6 +47,13 @@ public class MainActivity extends AppCompatActivity
 
         btnPrueba = (Button)findViewById(R.id.btnPrueba);
 
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            Toast.makeText(MainActivity.this, "Aqui los codigos para versiones superiores a M", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            Toast.makeText(MainActivity.this, "Version inferior a M", Toast.LENGTH_SHORT).show();
+        }
         /**
          * Compruebo si el dispositivo tiene Bluetooth
          *
@@ -83,11 +91,13 @@ public class MainActivity extends AppCompatActivity
                 ActivityCompat.requestPermissions(MainActivity.this,
                         new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,}
                                      ,PERMISO_LOCALIZACION);
+                AlertNoGps();
             }
             else{
                 ActivityCompat.requestPermissions(MainActivity.this,
                         new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,}
                         ,PERMISO_LOCALIZACION);
+                AlertNoGps();
             }
         }else{
             Log.i("KidLocaiza","Permiso otorgado");
