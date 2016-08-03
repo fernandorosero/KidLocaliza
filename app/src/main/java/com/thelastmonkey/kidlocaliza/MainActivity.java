@@ -46,30 +46,26 @@ public class MainActivity extends AppCompatActivity
          * Compruebo si el dispositivo tiene Bluetooth
          *
          */
-
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (bluetoothAdapter == null){
             Toast.makeText(getApplicationContext(),"Este dispositivo no tiene Bluetooth",Toast.LENGTH_SHORT).show();
         }else{
+            //Detecto el estado en el que se encuentra el adaptador Bluetooth ON/OFF
             if(bluetoothAdapter.isEnabled()){
                 bluetoothAdapter.enable();
                 Toast.makeText(MainActivity.this, "Bluetooh activado", Toast.LENGTH_SHORT).show();
             }else
             {
+                //Activo el Bluetooth
                 Toast.makeText(MainActivity.this,
                         "Esta aplicación necesita activar el Bluetooth para su correcto funcionamiento",
-                        Toast.LENGTH_SHORT).show();
+                        Toast.LENGTH_LONG).show();
 
                 Intent enabledBluetooth = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                 startActivityForResult(enabledBluetooth, REQUEST_ENABLE_BT);
             }
                 
         }
-
-
-        //Detecto el estado en el que se encuentra el adaptador Bluetooth ON/OFF
-
-
         /**
          * Realizo la comprobación de los permisos Ubicación GPS
          *
@@ -129,6 +125,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void startActivityForResult(Intent enabledBluetooth) {
+        //Aqui lo que se quiera hacer despues de habilitar o deshabilitar el Bluetooth
     }
 
     @Override
