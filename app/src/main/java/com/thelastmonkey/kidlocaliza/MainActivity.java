@@ -2,6 +2,7 @@ package com.thelastmonkey.kidlocaliza;
 
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -27,6 +28,7 @@ import com.thelastmonkey.kidlocaliza.util.KidLocalizaUtil.*;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final int REQUEST_ENABLE_BT = 1 ;
     Button btnPrueba;
     private final int PERMISO_LOCALIZACION = 1;
     private BluetoothAdapter bluetoothAdapter;
@@ -51,8 +53,19 @@ public class MainActivity extends AppCompatActivity
         }else{
             if(bluetoothAdapter.isEnabled()){
                 bluetoothAdapter.enable();
+                Toast.makeText(MainActivity.this, "Bluetooh activado", Toast.LENGTH_SHORT).show();
+            }else
+            {
+                Toast.makeText(MainActivity.this,
+                        "Esta aplicación necesita activar el Bluetooth para su correcto funcionamiento",
+                        Toast.LENGTH_SHORT).show();
+
+                Intent enabledBluetooth = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                startActivityForResult(enabledBluetooth, REQUEST_ENABLE_BT);
             }
+                
         }
+
 
         //Detecto el estado en el que se encuentra el adaptador Bluetooth ON/OFF
 
@@ -113,6 +126,9 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void startActivityForResult(Intent enabledBluetooth) {
     }
 
     @Override
