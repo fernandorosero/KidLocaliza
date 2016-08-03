@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
@@ -27,7 +26,6 @@ import android.widget.Toast;
 
 import com.thelastmonkey.kidlocaliza.KidDTO.KidDTO;
 import com.thelastmonkey.kidlocaliza.util.KidLocalizaUtil;
-import com.thelastmonkey.kidlocaliza.util.KidLocalizaUtil.*;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -101,7 +99,7 @@ public class MainActivity extends AppCompatActivity
                  startActivity(intentActivarGPS);
              }
             */
-             //AlertNoGps();
+             AlertNoGps();
         }
 
         final KidLocalizaUtil kidLocalTutil = new KidLocalizaUtil();
