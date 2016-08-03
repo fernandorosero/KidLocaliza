@@ -2,12 +2,16 @@ package com.thelastmonkey.kidlocaliza;
 
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -32,6 +36,8 @@ public class MainActivity extends AppCompatActivity
     Button btnPrueba;
     private final int PERMISO_LOCALIZACION = 1;
     private BluetoothAdapter bluetoothAdapter;
+    private LocationManager locationManager;
+    AlertDialog alert = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,15 +76,8 @@ public class MainActivity extends AppCompatActivity
          * Realizo la comprobación de los permisos Ubicación GPS
          *
          */
-        if(ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION)){
-            Toast.makeText(MainActivity.this, "Sin permisos del todo", Toast.LENGTH_SHORT).show();
-        }
-        else
-        {
-            Toast.makeText(MainActivity.this, "No tiene permiso y esta cancelado", Toast.LENGTH_SHORT).show();
-        }
-        if(ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+
+         if(ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
             Log.i("KidLocaliza", "El permiso está denegado y hay que solicitarlo a través de la App.");
 
             if(ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION)){
@@ -94,6 +93,15 @@ public class MainActivity extends AppCompatActivity
             }
         }else{
             Log.i("KidLocaiza","Permiso otorgado");
+             locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
+             /*
+             if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+                 Toast.makeText(MainActivity.this, "No está activado el GPS Y hay que activarlo", Toast.LENGTH_SHORT).show();
+                 Intent  intentActivarGPS = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                 startActivity(intentActivarGPS);
+             }
+            */
+             //AlertNoGps();
         }
 
         final KidLocalizaUtil kidLocalTutil = new KidLocalizaUtil();
@@ -135,7 +143,23 @@ public class MainActivity extends AppCompatActivity
     private void startActivityForResult(Intent enabledBluetooth) {
         //Aqui lo que se quiera hacer despues de habilitar o deshabilitar el Bluetooth
     }
-
+    private void AlertNoGps() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("El sistema GPS esta desactivado, ¿Desea activarlo?")
+                .setCancelable(false)
+                .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                    public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        dialog.cancel();
+                    }
+                });
+        alert = builder.create();
+        alert.show();
+    }
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
