@@ -67,15 +67,13 @@ public class MainActivity extends AppCompatActivity
             if(ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION)){
                 Log.i("KidLocaliza", "Aquí se vuelve a solicitar los permisos.");
                 ActivityCompat.requestPermissions(MainActivity.this,
-                        new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
-                                     Manifest.permission.BLUETOOTH,
-                                     Manifest.permission.BLUETOOTH_ADMIN},PERMISO_LOCALIZACION);
+                        new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,}
+                                     ,PERMISO_LOCALIZACION);
             }
             else{
                 ActivityCompat.requestPermissions(MainActivity.this,
-                        new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.BLUETOOTH,
-                        Manifest.permission.BLUETOOTH_ADMIN},PERMISO_LOCALIZACION);
+                        new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,}
+                        ,PERMISO_LOCALIZACION);
             }
         }else{
             Log.i("KidLocaiza","Permiso otorgado");
