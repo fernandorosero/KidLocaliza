@@ -70,6 +70,15 @@ public class MainActivity extends AppCompatActivity
          * Realizo la comprobación de los permisos Ubicación GPS
          *
          */
+        if(ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION)){
+            Toast.makeText(MainActivity.this, "Sin permisos del todo", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            Toast.makeText(MainActivity.this, "No tiene ningun permisos y  está cancelado", Toast.LENGTH_SHORT).show();
+
+        }
         if(ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
             Log.i("KidLocaliza", "El permiso está denegado y hay que solicitarlo a través de la App.");
 
