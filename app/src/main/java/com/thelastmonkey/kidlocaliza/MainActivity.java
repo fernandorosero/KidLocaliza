@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity
         }
         else
         {
-            Toast.makeText(MainActivity.this, "Version inferior a M", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "Version inferior a M ", Toast.LENGTH_SHORT).show();
         }
         /**
          * Compruebo si el dispositivo tiene Bluetooth
