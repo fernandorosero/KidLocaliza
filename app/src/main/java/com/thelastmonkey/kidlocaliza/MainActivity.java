@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity
                 Intent enabledBluetooth = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                 startActivityForResult(enabledBluetooth, REQUEST_ENABLE_BT);
             }
-                
+
         }
         /**
          * Realizo la comprobación de los permisos Ubicación GPS
