@@ -23,9 +23,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.thelastmonkey.kidlocaliza.KidDTO.KidDTO;
+import com.thelastmonkey.kidlocaliza.util.KidLocalizaConstantes;
 import com.thelastmonkey.kidlocaliza.util.KidLocalizaUtil;
 
 public class MainActivity extends AppCompatActivity
@@ -33,6 +35,9 @@ public class MainActivity extends AppCompatActivity
 
     private static final int REQUEST_ENABLE_BT = 1 ;
     Button btnPrueba;
+    Button btnMas;
+    Button btnMenos;
+    TextView textViewDistancia;
     private final int PERMISO_LOCALIZACION = 1;
     private BluetoothAdapter bluetoothAdapter;
     private LocationManager locationManager;
@@ -46,6 +51,27 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         btnPrueba = (Button)findViewById(R.id.btnPrueba);
+        btnMas = (Button)findViewById(R.id.btnMas);
+        btnMenos = (Button)findViewById(R.id.btnMenos);
+        textViewDistancia = (TextView)findViewById(R.id.textViewDistancia);
+
+        btnMenos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Integer.parseInt(textViewDistancia.getText().toString()) > KidLocalizaConstantes.DISTANCIA_MINIMA){
+                    textViewDistancia.setText(Integer.toString(Integer.parseInt(textViewDistancia.getText().toString()) - KidLocalizaConstantes.RESTA_SUMA_UNO));
+                }
+            }
+        });
+
+        btnMas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(Integer.parseInt(textViewDistancia.getText().toString()) < KidLocalizaConstantes.DISTANCIA_MAXIMA){
+                    textViewDistancia.setText(Integer.toString(Integer.parseInt(textViewDistancia.getText().toString()) + KidLocalizaConstantes.RESTA_SUMA_UNO));
+                }
+            }
+        });
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             Toast.makeText(MainActivity.this, "Aqui los codigos para versiones superiores a M", Toast.LENGTH_SHORT).show();

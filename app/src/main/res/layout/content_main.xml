@@ -13,6 +13,27 @@
     tools:showIn="@layout/app_bar_main"
     tools:context="com.thelastmonkey.kidlocaliza.MainActivity">
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/btnMenos"
+            android:text="@string/menos"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/textViewDistancia"
+            android:text="0"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <Button
+            android:id="@+id/btnMas"
+            android:text="@string/mas"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
     <TextView
         android:text="Hello World!"
         android:layout_width="wrap_content"
