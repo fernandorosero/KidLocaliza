@@ -9,4 +9,9 @@
     <string name="btnPrueba">Test</string>
     <string name="menos">-</string>
     <string name="mas">+</string>
+    <string name="titulo">Distance alert</string>
+    <string name="correolastmonkey">the.last.monkey@lastmonkey.com</string>
+    <string name="enviarubicacion">Send location</string>
+    <string name="compartir">Share</string>
+    <string name="ajustes">Settings</string>
 </resources>
