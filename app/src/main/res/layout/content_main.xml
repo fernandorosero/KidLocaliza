@@ -22,6 +22,7 @@
             android:id="@+id/btnMenos"
             android:text="@string/menos"
             android:layout_gravity="center"
+            android:textSize="50dp"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
         <TextView
@@ -34,8 +35,9 @@
         <Button
             android:id="@+id/btnMas"
             android:text="@string/mas"
-            android:layout_width="wrap_content"
             android:layout_gravity="center"
+            android:textSize="50dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent" />
     </LinearLayout>
 
