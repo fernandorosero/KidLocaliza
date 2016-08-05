@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity
 
         }
         /**
-         * Realizo la comprobación de los permisos Ubicación GPS
+         * Realizo la comprobación de los permisos Ubicación GPS_
          *
          */
 
@@ -120,13 +120,13 @@ public class MainActivity extends AppCompatActivity
                 ActivityCompat.requestPermissions(MainActivity.this,
                         new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,}
                                      ,PERMISO_LOCALIZACION);
-                AlertNoGps();
+                //AlertNoGps();
             }
             else{
                 ActivityCompat.requestPermissions(MainActivity.this,
                         new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,}
                         ,PERMISO_LOCALIZACION);
-                AlertNoGps();
+                //AlertNoGps();
             }
         }else{
             Log.i("KidLocaiza","Permiso otorgado");
@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity
                  startActivity(intentActivarGPS);
              }
             */
-             AlertNoGps();
+             //AlertNoGps();
         }
 
         final KidLocalizaUtil kidLocalTutil = new KidLocalizaUtil();
