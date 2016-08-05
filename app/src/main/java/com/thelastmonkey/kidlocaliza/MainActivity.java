@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -58,6 +59,21 @@ public class MainActivity extends AppCompatActivity
         btnMenos = (Button)findViewById(R.id.btnMenos);
         textViewDistancia = (TextView)findViewById(R.id.textViewDistancia);
 
+        //Intent activarUbicacion = new Intent(Intent.)
+
+        //ACTIVO BLUETOOTH
+        activarBluetooth();
+
+        //Dependiendo de la version se activan los permisos
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            Toast.makeText(MainActivity.this, "Aqui los codigos para versiones superiores a M", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            Toast.makeText(MainActivity.this, "Version inferior a M ", Toast.LENGTH_SHORT).show();
+        }
+
+        //Listener para los botones
         btnMenos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,37 +92,8 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            Toast.makeText(MainActivity.this, "Aqui los codigos para versiones superiores a M", Toast.LENGTH_SHORT).show();
-        }
-        else
-        {
-            Toast.makeText(MainActivity.this, "Version inferior a M ", Toast.LENGTH_SHORT).show();
-        }
-        /**
-         * Compruebo si el dispositivo tiene Bluetooth
-         *
-         */
-        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        if (bluetoothAdapter == null){
-            Toast.makeText(getApplicationContext(),"Este dispositivo no tiene Bluetooth",Toast.LENGTH_SHORT).show();
-        }else{
-            //Detecto el estado en el que se encuentra el adaptador Bluetooth ON/OFF
-            if(bluetoothAdapter.isEnabled()){
-                bluetoothAdapter.enable();
-                Toast.makeText(MainActivity.this, "Bluetooh activado", Toast.LENGTH_SHORT).show();
-            }else
-            {
-                //Activo el Bluetooth
-                Toast.makeText(MainActivity.this,
-                        "Esta aplicación necesita activar el Bluetooth para su correcto funcionamiento",
-                        Toast.LENGTH_LONG).show();
 
-                Intent enabledBluetooth = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                startActivityForResult(enabledBluetooth, REQUEST_ENABLE_BT);
-            }
 
-        }
         /**
          * Realizo la comprobación de los permisos Ubicación GPS
          *
@@ -120,16 +107,17 @@ public class MainActivity extends AppCompatActivity
                 ActivityCompat.requestPermissions(MainActivity.this,
                         new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,}
                                      ,PERMISO_LOCALIZACION);
-                AlertNoGps();
+                //AlertNoGps();
             }
             else{
                 ActivityCompat.requestPermissions(MainActivity.this,
                         new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,}
                         ,PERMISO_LOCALIZACION);
-                AlertNoGps();
+                //AlertNoGps();
             }
         }else{
             Log.i("KidLocaiza","Permiso otorgado");
+             turnGPSOn();
              locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
              /*
              if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
@@ -138,7 +126,7 @@ public class MainActivity extends AppCompatActivity
                  startActivity(intentActivarGPS);
              }
             */
-             AlertNoGps();
+            // AlertNoGps();
         }
 
         final KidLocalizaUtil kidLocalTutil = new KidLocalizaUtil();
@@ -179,6 +167,48 @@ public class MainActivity extends AppCompatActivity
 
     private void startActivityForResult(Intent enabledBluetooth) {
         //Aqui lo que se quiera hacer despues de habilitar o deshabilitar el Bluetooth
+    }
+
+    private void activarBluetooth(){
+        /**
+         * Compruebo si el dispositivo tiene Bluetooth
+         *
+         */
+        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (bluetoothAdapter == null){
+            Toast.makeText(getApplicationContext(),"Este dispositivo no tiene Bluetooth",Toast.LENGTH_SHORT).show();
+        }else{
+            //Detecto el estado en el que se encuentra el adaptador Bluetooth ON/OFF
+            if(bluetoothAdapter.isEnabled()){
+                bluetoothAdapter.enable();
+                Toast.makeText(MainActivity.this, "Bluetooh activado", Toast.LENGTH_SHORT).show();
+            }else
+            {
+                //Activo el Bluetooth
+                Toast.makeText(MainActivity.this,
+                        "Esta aplicación necesita activar el Bluetooth para su correcto funcionamiento",
+                        Toast.LENGTH_LONG).show();
+
+                Intent enabledBluetooth = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                startActivityForResult(enabledBluetooth, REQUEST_ENABLE_BT);
+            }
+
+        }
+    }
+    private void turnGPSOn() {
+
+        Log.i("localiza***","Entra al metodo");
+        String provider = android.provider.Settings.Secure.getString(
+                getContentResolver(),
+                android.provider.Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+        if (!provider.contains("gps")) { // if gps is disabled
+            final Intent poke = new Intent();
+            poke.setClassName("com.android.settings",
+                    "com.android.settings.widget.SettingsAppWidgetProvider");
+            poke.addCategory(Intent.CATEGORY_ALTERNATIVE);
+            poke.setData(Uri.parse("3"));
+            sendBroadcast(poke);
+        }
     }
     private void AlertNoGps() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
