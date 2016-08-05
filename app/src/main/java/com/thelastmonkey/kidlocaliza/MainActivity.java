@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity
         btnMenos = (Button)findViewById(R.id.btnMenos);
         textViewDistancia = (TextView)findViewById(R.id.textViewDistancia);
 
-        //Intent activarUbicacion = new Intent(Intent.)
+        //Intent activarUbicacion = new Intent(Intent. )
 
         //ACTIVO BLUETOOTH
         activarBluetooth();
