@@ -29,13 +29,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.thelastmonkey.kidlocaliza.KidDTO.KidDTO;
+import com.thelastmonkey.kidlocaliza.protocol.IBeacon;
+import com.thelastmonkey.kidlocaliza.protocol.IBeaconListener;
+import com.thelastmonkey.kidlocaliza.protocol.IBeaconProtocol;
+import com.thelastmonkey.kidlocaliza.protocol.Utils;
 import com.thelastmonkey.kidlocaliza.util.KidLocalizaConstantes;
 import com.thelastmonkey.kidlocaliza.util.KidLocalizaUtil;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, IBeaconListener {
 
     private static final int REQUEST_ENABLE_BT = 1 ;
+    private static final int REQUEST_BLUETOOTH_ENABLE = 1;
     Button btnMas;
     Button btnMenos;
     TextView textViewDistancia;
@@ -43,6 +51,31 @@ public class MainActivity extends AppCompatActivity
     private BluetoothAdapter bluetoothAdapter;
     private LocationManager locationManager;
     AlertDialog alert = null;
+
+    //Configurar UUID
+    public static final byte[] UUID = {(byte)0xA7,(byte)0xAE,(byte)0x2E,(byte)0xB7,(byte)0x1F,(byte)0x00,(byte)0x41,(byte)0x68,(byte)0xB9,(byte)0x9B,(byte)0xA7,(byte)0x49,(byte)0xBA,(byte)0xC1,(byte)0xCA,(byte)0x64};
+    private IBeacon beaconSeguimiento1 = new IBeacon(UUID,1 , 2);
+    private IBeaconProtocol iBeaconProtocol;
+
+    private void scanBeacon(){
+        Log.i(Utils.LOG_TAG,"Scanning");
+        iBeaconProtocol = iBeaconProtocol.getInstance(this);
+
+        //Filtro basado en el que tengo definido por defecto
+        iBeaconProtocol.setScanUUID(UUID);
+
+        if(!IBeaconProtocol.configureBluetoothAdapter(this)){
+            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableBtIntent, REQUEST_BLUETOOTH_ENABLE);
+        }else {
+            iBeaconProtocol.setListener(this);
+            if(iBeaconProtocol.isScanning())
+                iBeaconProtocol.scanIBeacons(false);
+            iBeaconProtocol.reset();
+            iBeaconProtocol.scanIBeacons(true);
+
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +89,8 @@ public class MainActivity extends AppCompatActivity
         btnMas = (Button)findViewById(R.id.btnMas);
         btnMenos = (Button)findViewById(R.id.btnMenos);
         textViewDistancia = (TextView)findViewById(R.id.textViewDistancia);
+
+
 
         //Intent activarUbicacion = new Intent(Intent.  )
 
@@ -71,6 +106,23 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(MainActivity.this, "Version inferior a M ", Toast.LENGTH_SHORT).show();
         }
 
+        iBeaconProtocol = IBeaconProtocol.getInstance(this);
+        iBeaconProtocol.setListener(this);
+
+        TimerTask searchIbeaconTask = new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        scanBeacon();
+                    }
+                });
+            }
+        };
+
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(searchIbeaconTask, 1000, 2 * 60 * 1000);
         //Listener para los botones
         btnMenos.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -264,5 +316,30 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void enterRegion(IBeacon ibeacon) {
+        Log.i("KidLocaliza","Entra en la región!!!");
+    }
+
+    @Override
+    public void exitRegion(IBeacon ibeacon) {
+
+    }
+
+    @Override
+    public void beaconFound(IBeacon ibeacon) {
+        Log.i("KidLocaliza", "Beacon encontrado!!" + ibeacon.toString());
+    }
+
+    @Override
+    public void searchState(int state) {
+
+    }
+
+    @Override
+    public void operationError(int status) {
+
     }
 }
