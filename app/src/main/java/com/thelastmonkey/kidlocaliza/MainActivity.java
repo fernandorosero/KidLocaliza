@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final int REQUEST_ENABLE_BT = 1 ;
-    Button btnPrueba;
     Button btnMas;
     Button btnMenos;
     TextView textViewDistancia;
@@ -54,7 +53,6 @@ public class MainActivity extends AppCompatActivity
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        btnPrueba = (Button)findViewById(R.id.btnPrueba);
         btnMas = (Button)findViewById(R.id.btnMas);
         btnMenos = (Button)findViewById(R.id.btnMenos);
         textViewDistancia = (TextView)findViewById(R.id.textViewDistancia);
@@ -129,22 +127,6 @@ public class MainActivity extends AppCompatActivity
             // AlertNoGps();
         }
 
-        final KidLocalizaUtil kidLocalTutil = new KidLocalizaUtil();
-        final KidDTO kidDTO = new KidDTO();
-        kidDTO.setNombre("Marcos");
-        kidDTO.setEdad(5);
-        kidDTO.setMajor(1);
-
-
-        btnPrueba.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getApplicationContext(),"Funciona el botoncito",Toast.LENGTH_SHORT).show();
-                kidLocalTutil.metodoPrueba();
-
-                kidLocalTutil.muestroKidDTO(kidDTO);
-            }
-        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

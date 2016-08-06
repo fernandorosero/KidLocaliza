@@ -14,4 +14,5 @@
     <string name="enviarubicacion">Enviar ubicación</string>
     <string name="compartir">Compartir</string>
     <string name="ajustes">Ajustes</string>
+    <string name="distanciaaproximada">Distancia aproximada</string>
 </resources>
