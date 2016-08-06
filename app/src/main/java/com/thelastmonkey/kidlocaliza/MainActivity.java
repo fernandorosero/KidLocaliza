@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity
     Button btnMas;
     Button btnMenos;
     TextView textViewDistancia;
+    TextView textViewDistanciaReal;
     private final int PERMISO_LOCALIZACION = 1;
     private BluetoothAdapter bluetoothAdapter;
     private LocationManager locationManager;
@@ -89,7 +91,7 @@ public class MainActivity extends AppCompatActivity
         btnMas = (Button)findViewById(R.id.btnMas);
         btnMenos = (Button)findViewById(R.id.btnMenos);
         textViewDistancia = (TextView)findViewById(R.id.textViewDistancia);
-
+        textViewDistanciaReal = (TextView)findViewById(R.id.textViewDistanciaReal);
 
 
         //Intent activarUbicacion = new Intent(Intent.  )
@@ -122,7 +124,7 @@ public class MainActivity extends AppCompatActivity
         };
 
         Timer timer = new Timer();
-        timer.scheduleAtFixedRate(searchIbeaconTask, 1000, 2 * 60 * 1000);
+        timer.scheduleAtFixedRate(searchIbeaconTask, 300, 25000);
         //Listener para los botones
         btnMenos.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,6 +132,7 @@ public class MainActivity extends AppCompatActivity
                 if (Integer.parseInt(textViewDistancia.getText().toString()) > KidLocalizaConstantes.DISTANCIA_MINIMA){
                     textViewDistancia.setText(Integer.toString(Integer.parseInt(textViewDistancia.getText().toString()) - KidLocalizaConstantes.RESTA_SUMA_UNO));
                 }
+                cambioBackgroundAndColorTextView(Integer.parseInt(textViewDistanciaReal.getText().toString()));
             }
         });
 
@@ -139,6 +142,7 @@ public class MainActivity extends AppCompatActivity
                 if(Integer.parseInt(textViewDistancia.getText().toString()) < KidLocalizaConstantes.DISTANCIA_MAXIMA){
                     textViewDistancia.setText(Integer.toString(Integer.parseInt(textViewDistancia.getText().toString()) + KidLocalizaConstantes.RESTA_SUMA_UNO));
                 }
+                cambioBackgroundAndColorTextView(Integer.parseInt(textViewDistanciaReal.getText().toString()));
             }
         });
 
@@ -320,7 +324,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void enterRegion(IBeacon ibeacon) {
-        Log.i("KidLocaliza","Entra en la región!!!");
+        Log.i(Utils.LOG_TAG,"Entra en la región!!!");
     }
 
     @Override
@@ -330,7 +334,11 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void beaconFound(IBeacon ibeacon) {
-        Log.i("KidLocaliza", "Beacon encontrado!!" + ibeacon.toString());
+        textViewDistanciaReal.setText(Integer.toString(ibeacon.getProximity()));
+        cambioBackgroundAndColorTextView(ibeacon.getProximity());
+        Log.i(Utils.LOG_TAG, "Beacon encontrado!!" + ibeacon.toString());
+        Log.i(Utils.LOG_TAG, "Se encuentra a:" + ibeacon.getProximity());
+
     }
 
     @Override
@@ -340,6 +348,18 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void operationError(int status) {
+
+    }
+
+    public void cambioBackgroundAndColorTextView(int distBeacon){
+        if(distBeacon > Integer.parseInt(textViewDistancia.getText().toString())){
+            textViewDistanciaReal.setBackgroundColor(Color.parseColor("#c73053"));
+            textViewDistanciaReal.setTextColor(Color.parseColor("#ffffff"));
+        }
+        else{
+            textViewDistanciaReal.setBackgroundColor(Color.parseColor("#e6fdff"));
+            textViewDistanciaReal.setTextColor(Color.parseColor("#383838"));
+        }
 
     }
 }
