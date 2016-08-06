@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity
         };
 
         Timer timer = new Timer();
-        timer.scheduleAtFixedRate(searchIbeaconTask, 300, 25000);
+        timer.scheduleAtFixedRate(searchIbeaconTask, 200, 25000);
         //Listener para los botones
         btnMenos.setOnClickListener(new View.OnClickListener() {
             @Override
