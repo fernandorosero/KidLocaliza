@@ -237,7 +237,7 @@ public class MainActivity extends AppCompatActivity
     }
 
      void avisoDistanciaKidLocaliza(){
-        Bitmap icono = BitmapFactory.decodeResource(getResources(), mon)
+       // Bitmap icono = BitmapFactory.decodeResource(getResources(), mon)
 
     }
     private void turnGPSOn() {
