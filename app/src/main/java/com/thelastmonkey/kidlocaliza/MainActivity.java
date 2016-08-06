@@ -42,6 +42,7 @@ import com.thelastmonkey.kidlocaliza.util.KidLocalizaUtil;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static  com.thelastmonkey.kidlocaliza.R.drawable.monkey_azul;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, IBeaconListener {
 
@@ -237,8 +238,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void aviso_simple(){
-        int id_aviso = 0;
-        //Bitmap icono = BitmapFactory.decodeResource(getResources(), monkey_azul);
+        Bitmap icono = BitmapFactory.decodeResource(getResources(),monkey_azul);
     }
     private void turnGPSOn() {
 
