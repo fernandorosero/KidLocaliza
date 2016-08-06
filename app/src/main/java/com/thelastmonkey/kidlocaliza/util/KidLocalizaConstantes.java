@@ -9,4 +9,6 @@ public class KidLocalizaConstantes {
     public static final int DISTANCIA_MINIMA = 0;
     public static final int DISTANCIA_MAXIMA = 70;
 
+    public final int ID_AVISO = 0;
+
 }
