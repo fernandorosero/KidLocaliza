@@ -257,14 +257,14 @@ public class MainActivity extends AppCompatActivity
         //Encender el led de avisos
         avisoSimpleKidLocaliza.setLights(Color.WHITE,100,1000);
 
-        Intent i = null;
-        i = new Intent(MainActivity.this,MainActivity.class);
+        Intent intentActivaMain = null;
+        intentActivaMain = new Intent(MainActivity.this,MainActivity.class);
 
-        assert i != null;
-        i.putExtra("Id",KidLocalizaConstantes.ID_AVISO);
+        assert intentActivaMain != null;
+        intentActivaMain.putExtra("Id",KidLocalizaConstantes.ID_AVISO);
 
         //Creo el PendingIntent
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, i, 0);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intentActivaMain, 0);
 
         //Adjunto el PendingIntetn a la notificación
         avisoSimpleKidLocaliza.setContentIntent(pendingIntent);
