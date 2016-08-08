@@ -6,7 +6,7 @@ package com.thelastmonkey.kidlocaliza.util;
 public class KidLocalizaConstantes {
     public static final int RESTA_SUMA_UNO = 1;
 
-    public static final int DISTANCIA_MINIMA = 0;
+    public static final int DISTANCIA_MINIMA = 1;
     public static final int DISTANCIA_MAXIMA = 70;
 
     public static final int ID_AVISO = 0;

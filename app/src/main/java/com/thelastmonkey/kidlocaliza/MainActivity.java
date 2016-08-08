@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -137,7 +138,8 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 if (Integer.parseInt(textViewDistancia.getText().toString()) > KidLocalizaConstantes.DISTANCIA_MINIMA){
-                    textViewDistancia.setText(Integer.toString(Integer.parseInt(textViewDistancia.getText().toString()) - KidLocalizaConstantes.RESTA_SUMA_UNO));
+                    textViewDistancia.setText(aumentaCaracter((Integer.parseInt(textViewDistancia.getText().toString()) - KidLocalizaConstantes.RESTA_SUMA_UNO))
+                             + Integer.toString(Integer.parseInt(textViewDistancia.getText().toString()) - KidLocalizaConstantes.RESTA_SUMA_UNO));
                 }
                 cambioBackgroundAndColorTextView(Integer.parseInt(textViewDistanciaReal.getText().toString()));
             }
@@ -147,11 +149,13 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 if(Integer.parseInt(textViewDistancia.getText().toString()) < KidLocalizaConstantes.DISTANCIA_MAXIMA){
-                    textViewDistancia.setText(Integer.toString(Integer.parseInt(textViewDistancia.getText().toString()) + KidLocalizaConstantes.RESTA_SUMA_UNO));
+                    textViewDistancia.setText(aumentaCaracter((Integer.parseInt(textViewDistancia.getText().toString()) + KidLocalizaConstantes.RESTA_SUMA_UNO))
+                            + Integer.toString(Integer.parseInt(textViewDistancia.getText().toString()) + KidLocalizaConstantes.RESTA_SUMA_UNO));
                 }
                 cambioBackgroundAndColorTextView(Integer.parseInt(textViewDistanciaReal.getText().toString()));
             }
         });
+
 
 
 
@@ -214,6 +218,9 @@ public class MainActivity extends AppCompatActivity
         //Aqui lo que se quiera hacer despues de habilitar o deshabilitar el Bluetooth
     }
 
+    /**
+     * Método que activa el Bluetooth
+     */
     private void activarBluetooth(){
         /**
          * Compruebo si el dispositivo tiene Bluetooth
@@ -241,6 +248,10 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Método que permite lanzar un aviso Broadcast cuando se abandona la zona de seguridad
+     * @param distancia Valor de la distancia que se encuentra el beacon
+     */
     public void avisoSimpleKidLocaliza(int distancia){
         //Extraigo el icono
         Bitmap icono = BitmapFactory.decodeResource(getResources(),monkey_azul);
@@ -404,6 +415,10 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    /**
+     * Método que cambia de color si está dentro o fuera de la zona de seguridad
+     * @param distBeacon es la distancia a la que se encuentra
+     */
     public void cambioBackgroundAndColorTextView(int distBeacon){
         if(distBeacon > Integer.parseInt(textViewDistancia.getText().toString())){
             textViewDistanciaReal.setBackgroundColor(Color.parseColor("#c73053"));
@@ -414,5 +429,21 @@ public class MainActivity extends AppCompatActivity
             textViewDistanciaReal.setTextColor(Color.parseColor("#383838"));
         }
 
+    }
+
+    /**
+     * Método que aumenta un cero a la izquierda si el valor de la Distancia de alerta
+     * es menor a 10
+     * @param beaconDistanciaSeguridad devuelve 0 ó ""
+     * @return
+     */
+    public String aumentaCaracter(int beaconDistanciaSeguridad){
+        String aumentoValor = "";
+        Log.i(Utils.LOG_TAG, Integer.toString(beaconDistanciaSeguridad));
+        if(beaconDistanciaSeguridad <= 9){
+            Log.i(Utils.LOG_TAG, Integer.toString(beaconDistanciaSeguridad));
+            aumentoValor = "0";
+        }
+        return aumentoValor;
     }
 }
