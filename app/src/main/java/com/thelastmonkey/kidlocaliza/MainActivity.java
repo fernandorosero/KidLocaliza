@@ -388,18 +388,22 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void enterRegion(IBeacon ibeacon) {
         Log.i(Utils.LOG_TAG,"Entra en la región!!!");
+        Log.i(Utils.LOG_TAG,"Es la proximidad:" + ibeacon.getProximity());
+        textViewDistanciaReal.setText(Integer.toString(ibeacon.getProximity()));
     }
 
     @Override
     public void exitRegion(IBeacon ibeacon) {
-
+        textViewDistanciaReal.setText(Integer.toString(ibeacon.getProximity()));
     }
 
     @Override
     public void beaconFound(IBeacon ibeacon) {
         textViewDistanciaReal.setText(Integer.toString(ibeacon.getProximity()));
         cambioBackgroundAndColorTextView(ibeacon.getProximity());
-        avisoSimpleKidLocaliza(ibeacon.getProximity());
+        if(ibeacon.getProximity() > Integer.parseInt(textViewDistancia.getText().toString())) {
+            avisoSimpleKidLocaliza(ibeacon.getProximity());
+        }
         Log.i(Utils.LOG_TAG, "Beacon encontrado!!" + ibeacon.toString());
         Log.i(Utils.LOG_TAG, "Se encuentra a:" + ibeacon.getProximity());
 
@@ -407,7 +411,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void searchState(int state) {
-
+        Log.i(Utils.LOG_TAG,"El estado es: " + state);
     }
 
     @Override
@@ -439,9 +443,7 @@ public class MainActivity extends AppCompatActivity
      */
     public String aumentaCaracter(int beaconDistanciaSeguridad){
         String aumentoValor = "";
-        Log.i(Utils.LOG_TAG, Integer.toString(beaconDistanciaSeguridad));
         if(beaconDistanciaSeguridad <= 9){
-            Log.i(Utils.LOG_TAG, Integer.toString(beaconDistanciaSeguridad));
             aumentoValor = "0";
         }
         return aumentoValor;
