@@ -4,9 +4,18 @@ public class KidDTO {
     private String nombre;
     private int edad;
     private byte[] beconUUID;
-
     private int major;
     private int minor;
+    private int distancia;
+
+    public int getDistancia() {
+        return distancia;
+    }
+
+    public void setDistancia(int distancia) {
+        this.distancia = distancia;
+    }
+
     public String getNombre() {
         return nombre;
     }

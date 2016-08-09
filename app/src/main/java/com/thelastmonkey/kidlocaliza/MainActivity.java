@@ -387,14 +387,15 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void enterRegion(IBeacon ibeacon) {
+        textViewDistanciaReal.setText(Integer.toString(ibeacon.getProximity()));
         Log.i(Utils.LOG_TAG,"Entra en la región!!!");
         Log.i(Utils.LOG_TAG,"Es la proximidad:" + ibeacon.getProximity());
-        textViewDistanciaReal.setText(Integer.toString(ibeacon.getProximity()));
     }
 
     @Override
     public void exitRegion(IBeacon ibeacon) {
         textViewDistanciaReal.setText(Integer.toString(ibeacon.getProximity()));
+        Log.i(KidLocalizaConstantes.LOG_KIDLOCALIZA,"Sale de la región: " + ibeacon.getProximity());
     }
 
     @Override

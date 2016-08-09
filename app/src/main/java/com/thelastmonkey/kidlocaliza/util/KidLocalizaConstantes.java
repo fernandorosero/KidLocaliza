@@ -11,4 +11,5 @@ public class KidLocalizaConstantes {
 
     public static final int ID_AVISO = 0;
 
+    public final static String LOG_KIDLOCALIZA = "KidLocaliza";
 }
