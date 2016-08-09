@@ -32,6 +32,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,11 +53,15 @@ public class MainActivity extends AppCompatActivity
 
     private static final int REQUEST_ENABLE_BT = 1 ;
     private static final int REQUEST_BLUETOOTH_ENABLE = 1;
+    private final int PERMISO_LOCALIZACION = 1;
+
     Button btnMas;
     Button btnMenos;
     TextView textViewDistancia;
     TextView textViewDistanciaReal;
-    private final int PERMISO_LOCALIZACION = 1;
+    Switch switchVibration;
+
+
     private BluetoothAdapter bluetoothAdapter;
     private LocationManager locationManager;
     AlertDialog alert = null;
@@ -100,7 +105,7 @@ public class MainActivity extends AppCompatActivity
         btnMenos = (Button)findViewById(R.id.btnMenos);
         textViewDistancia = (TextView)findViewById(R.id.textViewDistancia);
         textViewDistanciaReal = (TextView)findViewById(R.id.textViewDistanciaReal);
-
+        switchVibration = (Switch)findViewById(R.id.switchVibration);
 
         //Intent activarUbicacion = new Intent(Intent.  )
 
@@ -156,6 +161,19 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        //Listener Switch
+        switchVibration.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(switchVibration.isChecked())
+                {
+                    Log.i(KidLocalizaConstantes.LOG_KIDLOCALIZA,"Es ON");
+                }else
+                {
+                    Log.i(KidLocalizaConstantes.LOG_KIDLOCALIZA,"Es OFF");
+                }
+            }
+        });
 
 
 
@@ -402,12 +420,11 @@ public class MainActivity extends AppCompatActivity
     public void beaconFound(IBeacon ibeacon) {
         textViewDistanciaReal.setText(Integer.toString(ibeacon.getProximity()));
         cambioBackgroundAndColorTextView(ibeacon.getProximity());
-        if(ibeacon.getProximity() > Integer.parseInt(textViewDistancia.getText().toString())) {
+        if((ibeacon.getProximity() > Integer.parseInt(textViewDistancia.getText().toString())) && switchVibration.isChecked()) {
             avisoSimpleKidLocaliza(ibeacon.getProximity());
         }
         Log.i(KidLocalizaConstantes.LOG_KIDLOCALIZA, "Beacon encontrado!!" + ibeacon.toString());
         Log.i(KidLocalizaConstantes.LOG_KIDLOCALIZA, "Se encuentra a:" + ibeacon.getProximity());
-
     }
 
     @Override

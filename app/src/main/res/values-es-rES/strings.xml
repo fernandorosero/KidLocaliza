@@ -16,4 +16,5 @@
     <string name="ajustes">Ajustes</string>
     <string name="distanciaaproximada">Distancia aproximada</string>
     <string name="buscando">Buscando</string>
+    <string name="vibracion">Vibración: </string>
 </resources>
