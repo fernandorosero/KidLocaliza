@@ -33,7 +33,7 @@
         <Button
             android:id="@+id/btnMenos"
             android:text="@string/menos"
-            android:layout_gravity="left"
+            android:layout_gravity="center"
             android:layout_marginRight="15dp"
             android:textSize="60dp"
             android:layout_width="wrap_content"
@@ -93,10 +93,11 @@
             android:text="@string/vibracion"
             android:textSize="23dp"
             android:padding="10dp"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="25dp"
             android:layout_marginTop="30dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:checked="true" />
     </LinearLayout>
 
 </LinearLayout>
