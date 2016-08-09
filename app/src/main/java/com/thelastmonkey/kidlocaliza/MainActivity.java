@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity
     private IBeaconProtocol iBeaconProtocol;
 
     private void scanBeacon(){
-        Log.i(Utils.LOG_TAG,"Scanning");
+        Log.i(KidLocalizaConstantes.LOG_KIDLOCALIZA,"Scanning");
         iBeaconProtocol = iBeaconProtocol.getInstance(this);
 
         //Filtro basado en el que tengo definido por defecto
@@ -165,10 +165,10 @@ public class MainActivity extends AppCompatActivity
          */
 
          if(ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-            Log.i("KidLocaliza", "El permiso está denegado y hay que solicitarlo a través de la App.");
+            Log.i(KidLocalizaConstantes.LOG_KIDLOCALIZA, "El permiso está denegado y hay que solicitarlo a través de la App.");
 
             if(ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION)){
-                Log.i("KidLocaliza", "Aquí se vuelve a solicitar los permisos.");
+                Log.i(KidLocalizaConstantes.LOG_KIDLOCALIZA, "Aquí se vuelve a solicitar los permisos.");
                 ActivityCompat.requestPermissions(MainActivity.this,
                         new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,}
                                      ,PERMISO_LOCALIZACION);
@@ -181,7 +181,7 @@ public class MainActivity extends AppCompatActivity
                 //AlertNoGps();
             }
         }else{
-            Log.i("KidLocaiza","Permiso otorgado");
+            Log.i(KidLocalizaConstantes.LOG_KIDLOCALIZA,"Permiso otorgado");
              turnGPSOn();
              locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
              /*
@@ -291,7 +291,7 @@ public class MainActivity extends AppCompatActivity
 
         //Lanzo el aviso
         miNotificationManager.notify(1,aviso);
-        Log.i(Utils.LOG_TAG,"Se ha lanzado el aviso!");
+        Log.i(KidLocalizaConstantes.LOG_KIDLOCALIZA,"Se ha lanzado el aviso!");
 
 
 
@@ -388,8 +388,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void enterRegion(IBeacon ibeacon) {
         textViewDistanciaReal.setText(Integer.toString(ibeacon.getProximity()));
-        Log.i(Utils.LOG_TAG,"Entra en la región!!!");
-        Log.i(Utils.LOG_TAG,"Es la proximidad:" + ibeacon.getProximity());
+        Log.i(KidLocalizaConstantes.LOG_KIDLOCALIZA,"Entra en la región!!!");
+        Log.i(KidLocalizaConstantes.LOG_KIDLOCALIZA,"Es la proximidad:" + ibeacon.getProximity());
     }
 
     @Override
@@ -405,14 +405,14 @@ public class MainActivity extends AppCompatActivity
         if(ibeacon.getProximity() > Integer.parseInt(textViewDistancia.getText().toString())) {
             avisoSimpleKidLocaliza(ibeacon.getProximity());
         }
-        Log.i(Utils.LOG_TAG, "Beacon encontrado!!" + ibeacon.toString());
-        Log.i(Utils.LOG_TAG, "Se encuentra a:" + ibeacon.getProximity());
+        Log.i(KidLocalizaConstantes.LOG_KIDLOCALIZA, "Beacon encontrado!!" + ibeacon.toString());
+        Log.i(KidLocalizaConstantes.LOG_KIDLOCALIZA, "Se encuentra a:" + ibeacon.getProximity());
 
     }
 
     @Override
     public void searchState(int state) {
-        Log.i(Utils.LOG_TAG,"El estado es: " + state);
+        Log.i(KidLocalizaConstantes.LOG_KIDLOCALIZA,"El estado es: " + state);
     }
 
     @Override
