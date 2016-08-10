@@ -391,7 +391,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
-
+            Toast.makeText(MainActivity.this, "Aqui llamo al layout ajustes", Toast.LENGTH_SHORT).show();
+            Intent intenDatosKid = new Intent(MainActivity.this, Data_Kid.class);
+            startActivity(intenDatosKid);
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {

@@ -17,4 +17,5 @@
     <string name="distanciaaproximada">Distance approximative</string>
     <string name="buscando">Recherche</string>
     <string name="vibracion">Vibration: </string>
+    <string name="title_activity_data__kid">Données enfant</string>
 </resources>
