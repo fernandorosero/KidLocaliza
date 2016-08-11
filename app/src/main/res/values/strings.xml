@@ -18,4 +18,7 @@
     <string name="buscando">Scanning</string>
     <string name="vibracion">Vibration: </string>
     <string name="title_activity_data__kid">Data Kid</string>
+    <string name="datospreferencias">Preference data</string>
+    <string name="zonasegura">Security zone</string>
+    <string name="guardar">Save</string>
 </resources>

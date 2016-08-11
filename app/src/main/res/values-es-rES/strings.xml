@@ -18,4 +18,7 @@
     <string name="buscando">Buscando</string>
     <string name="vibracion">Vibración: </string>
     <string name="title_activity_data__kid">Datos del niño</string>
+    <string name="datospreferencias">Datos de preferencias</string>
+    <string name="zonasegura">Zona de seguridad</string>
+    <string name="guardar">Guarddar</string>
 </resources>

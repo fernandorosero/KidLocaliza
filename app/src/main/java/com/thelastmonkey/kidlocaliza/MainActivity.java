@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.bluetooth.BluetoothAdapter;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -106,6 +107,12 @@ public class MainActivity extends AppCompatActivity
         textViewDistancia = (TextView)findViewById(R.id.textViewDistancia);
         textViewDistanciaReal = (TextView)findViewById(R.id.textViewDistanciaReal);
         switchVibration = (Switch)findViewById(R.id.switchVibration);
+
+        //Cargo las preferencias para los datos
+        KidLocalizaConstantes.prefs = getPreferences(MODE_PRIVATE);
+
+        textViewDistancia.setText(KidLocalizaConstantes.prefs.getString(KidLocalizaConstantes.KID_LOCALIZA_NOMBRE, "01"));
+        
 
         //Intent activarUbicacion = new Intent(Intent.  )
 
