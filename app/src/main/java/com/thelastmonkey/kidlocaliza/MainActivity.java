@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity
         switchVibration = (Switch)findViewById(R.id.switchVibration);
 
         //Cargo las preferencias para los datos
-        KidLocalizaConstantes.prefs = getPreferences(MODE_PRIVATE);
+        KidLocalizaConstantes.prefs = getPreferences(MODE_APPEND);
 
         textViewDistancia.setText(KidLocalizaConstantes.prefs.getString(KidLocalizaConstantes.KID_LOCALIZA_NOMBRE, "01"));
         

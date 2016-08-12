@@ -41,7 +41,7 @@ public class Data_Kid extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //Recojo una preferencia para las preferencias
-                KidLocalizaConstantes.prefs = getPreferences(MODE_PRIVATE);
+                KidLocalizaConstantes.prefs = getPreferences(MODE_APPEND);
 
                 //Se activa la edicion
                 SharedPreferences.Editor editor = KidLocalizaConstantes.prefs.edit();
@@ -59,7 +59,7 @@ public class Data_Kid extends AppCompatActivity {
         });
 
         //Al iniciarse el programa cojo las preferencias de los usuarios
-        KidLocalizaConstantes.prefs = getPreferences(MODE_PRIVATE);
+        KidLocalizaConstantes.prefs = getPreferences(MODE_APPEND);
 
         //Seteo con los valores de prefs
         txtNombre.setText(KidLocalizaConstantes.prefs.getString(KidLocalizaConstantes.KID_LOCALIZA_NOMBRE,""));
